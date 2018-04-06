@@ -52,6 +52,56 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
     }
 
     @Override
+    public boolean addEntry(BarEntry e) {
+        if (e == null)
+            return false;
+
+        List<BarEntry> values = getValues();
+        if (values == null) {
+            values = new ArrayList<>();
+        }
+
+        calcMinMax(e);
+
+        // add the entry
+        boolean result = values.add(e);
+
+        calcStackSize(values);
+        calcEntryCountIncludingStacks(values);
+
+        return result;
+    }
+
+    @Override
+    public boolean removeEntry(BarEntry e) {
+        if (e == null)
+            return false;
+
+        if (mValues == null)
+            return false;
+
+        // remove the entry
+        boolean removed = mValues.remove(e);
+
+        if (removed) {
+            calcMinMax();
+        }
+
+        calcStackSize(mValues);
+        calcEntryCountIncludingStacks(mValues);
+
+        return removed;
+    }
+
+    @Override
+    public void addEntryOrdered(BarEntry e) {
+        super.addEntryOrdered(e);
+
+        calcStackSize(mValues);
+        calcEntryCountIncludingStacks(mValues);
+    }
+
+    @Override
     public DataSet<BarEntry> copy() {
         List<BarEntry> entries = new ArrayList<BarEntry>();
         for (int i = 0; i < mValues.size(); i++) {
