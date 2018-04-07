@@ -1,8 +1,11 @@
 
 package com.github.mikephil.charting.data;
 
+import android.util.Log;
+
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,46 +63,25 @@ public class BarData extends BarLineScatterCandleBubbleData<IBarDataSet> {
             throw new RuntimeException("BarData needs to hold at least 2 BarDataSets to allow grouping.");
         }
 
-        IBarDataSet max = getMaxEntryCountSet();
-        int maxEntryCount = max.getEntryCount();
+        List<Float> xPositions = new ArrayList<>();
 
-        float groupSpaceWidthHalf = groupSpace / 2f;
-        float barSpaceHalf = barSpace / 2f;
-        float barWidthHalf = mBarWidth / 2f;
-
-        float interval = getGroupWidth(groupSpace, barSpace);
-
-        for (int i = 0; i < maxEntryCount; i++) {
-
-            float start = fromX;
-            fromX += groupSpaceWidthHalf;
-
-            for (IBarDataSet set : mDataSets) {
-
-                fromX += barSpaceHalf;
-                fromX += barWidthHalf;
-
-                if (i < set.getEntryCount()) {
-
-                    BarEntry entry = set.getEntryForIndex(i);
-
-                    if (entry != null) {
-                        entry.setX(fromX);
-                    }
+        for(IBarDataSet set : mDataSets){
+            for(int i = 0; i < set.getEntryCount(); i++){
+                if(!xPositions.contains(set.getEntryForIndex(i).getX())){
+                    xPositions.add(set.getEntryForIndex(i).getX());
                 }
-
-                fromX += barWidthHalf;
-                fromX += barSpaceHalf;
             }
+        }
 
-            fromX += groupSpaceWidthHalf;
-            float end = fromX;
-            float innerInterval = end - start;
-            float diff = interval - innerInterval;
+        Float groupWidth = getGroupWidth(barSpace);
 
-            // correct rounding errors
-            if (diff > 0 || diff < 0) {
-                fromX += diff;
+        for(Float pos : xPositions){
+            for(IBarDataSet set : mDataSets){
+                int setIndex = mDataSets.indexOf(set);
+
+                for(BarEntry entry : set.getEntriesForXValue(pos)){
+                    entry.setX(entry.getX()-(groupWidth/2)+(setIndex*(mBarWidth + barSpace)) + mBarWidth/2);
+                }
             }
         }
 
@@ -109,11 +91,11 @@ public class BarData extends BarLineScatterCandleBubbleData<IBarDataSet> {
     /**
      * In case of grouped bars, this method returns the space an individual group of bar needs on the x-axis.
      *
-     * @param groupSpace
      * @param barSpace
      * @return
      */
-    public float getGroupWidth(float groupSpace, float barSpace) {
-        return mDataSets.size() * (mBarWidth + barSpace) + groupSpace;
+    public float getGroupWidth(float barSpace) {
+        //We subtract the on bar space, because the last bar doesn't have another bar to have space in between
+        return mDataSets.size() * (mBarWidth + barSpace) - barSpace;
     }
 }
