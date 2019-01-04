@@ -391,8 +391,8 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                             trans.pointValuesToPixel(transformed);
 
                             for (int k = 0; k < transformed.length; k += 2) {
-
-                                final float val = vals[k / 2];
+                                final int valIndex = k/2;
+                                final float val = vals[valIndex];
                                 final boolean drawBelow =
                                         (val == 0.0f && negY == 0.0f && posY > 0.0f) ||
                                                 val < 0.0f;
@@ -407,7 +407,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                                     continue;
 
                                 if (dataSet.isDrawValuesEnabled()) {
-                                    drawValue(c, formatter.getBarStackedLabel(val, entry), x, y, color);
+                                    drawValue(c, formatter.getBarStackedLabel(val, valIndex, entry), x, y, color);
                                 }
 
                                 if (entry.getIcon() != null && dataSet.isDrawIconsEnabled()) {

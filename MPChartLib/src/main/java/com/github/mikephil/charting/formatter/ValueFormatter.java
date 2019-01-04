@@ -76,6 +76,18 @@ public abstract class ValueFormatter implements IAxisValueFormatter, IValueForma
      * Used to draw stacked bar labels, calls {@link #getFormattedValue(float)} by default.
      *
      * @param value        current value to be formatted
+     * @param stackIndex   index of the value within the value stack
+     * @param stackedEntry stacked entry being labeled, contains all Y values
+     * @return formatted string label
+     */
+    public String getBarStackedLabel(float value, int stackIndex, BarEntry stackedEntry) {
+        return getBarStackedLabel(value, stackedEntry);
+    }
+
+    /**
+     * Used to draw stacked bar labels, calls {@link #getFormattedValue(float)} by default.
+     *
+     * @param value        current value to be formatted
      * @param stackedEntry stacked entry being labeled, contains all Y values
      * @return formatted string label
      */
