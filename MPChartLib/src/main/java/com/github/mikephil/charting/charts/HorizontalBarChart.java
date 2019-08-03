@@ -150,7 +150,7 @@ public class HorizontalBarChart extends BarChart {
         }
 
         float y = e.getY();
-        float x = e.getX();
+        float x = e.getDrawAtX();
 
         float barWidth = mData.getBarWidth();
 
@@ -182,7 +182,7 @@ public class HorizontalBarChart extends BarChart {
 
         float[] vals = mGetPositionBuffer;
         vals[0] = e.getY();
-        vals[1] = e.getX();
+        vals[1] = e.getDrawAtX();
 
         getTransformer(axis).pointValuesToPixel(vals);
 

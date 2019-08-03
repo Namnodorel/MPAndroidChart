@@ -154,7 +154,6 @@ public class CombinedChartActivity extends DemoBase {
         set2.setValueTextSize(10f);
         set2.setAxisDependency(YAxis.AxisDependency.LEFT);
 
-        float groupSpace = 0.06f;
         float barSpace = 0.02f; // x2 dataset
         float barWidth = 0.45f; // x2 dataset
         // (0.45 + 0.02) * 2 + 0.06 = 1.00 -> interval per "group"
@@ -163,7 +162,7 @@ public class CombinedChartActivity extends DemoBase {
         d.setBarWidth(barWidth);
 
         // make this BarData object grouped
-        d.groupBars(0, groupSpace, barSpace); // start at x = 0
+        d.groupBars(barSpace); // start at x = 0
 
         return d;
     }

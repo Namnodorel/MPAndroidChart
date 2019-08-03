@@ -114,7 +114,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
                 BarEntry e = dataSet.getEntryForIndex(i);
 
-                x = e.getX();
+                x = e.getDrawAtX();
 
                 mBarShadowRectBuffer.left = x - barWidthHalf;
                 mBarShadowRectBuffer.right = x + barWidthHalf;
@@ -488,7 +488,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                 y2 = 0.f;
             }
 
-            prepareBarHighlight(e.getX(), y1, y2, barData.getBarWidth() / 2f, trans);
+            prepareBarHighlight(e.getDrawAtX(), y1, y2, barData.getBarWidth() / 2f, trans);
 
             setHighlightDrawPos(high, mBarRect);
 

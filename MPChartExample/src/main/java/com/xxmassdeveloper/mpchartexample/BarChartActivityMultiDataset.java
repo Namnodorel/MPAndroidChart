@@ -184,8 +184,8 @@ public class BarChartActivityMultiDataset extends DemoBase implements OnSeekBarC
         chart.getXAxis().setAxisMinimum(startYear);
 
         // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
-        chart.getXAxis().setAxisMaximum(startYear + chart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
-        chart.groupBars(startYear, groupSpace, barSpace);
+        chart.getXAxis().setAxisMaximum(startYear + chart.getBarData().getGroupWidth(barSpace) * groupCount);
+        chart.groupBars(barSpace);
         chart.invalidate();
     }
 

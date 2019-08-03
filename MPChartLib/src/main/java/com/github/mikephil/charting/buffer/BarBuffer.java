@@ -53,7 +53,7 @@ public class BarBuffer extends AbstractBuffer<IBarDataSet> {
             if(e == null)
                 continue;
 
-            float x = e.getX();
+            float x = e.getDrawAtX();
             float y = e.getY();
             float[] vals = e.getYVals();
 

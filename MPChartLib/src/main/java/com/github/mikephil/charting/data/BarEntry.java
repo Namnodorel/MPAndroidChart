@@ -144,6 +144,7 @@ public class BarEntry extends Entry {
 
         BarEntry copied = new BarEntry(getX(), getY(), getData());
         copied.setVals(mYVals);
+        copied.setDrawAtX(getDrawAtX());
         return copied;
     }
 

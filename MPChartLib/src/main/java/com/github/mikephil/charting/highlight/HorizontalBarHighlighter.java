@@ -58,7 +58,7 @@ public class HorizontalBarHighlighter extends BarHighlighter {
 			if (closest != null)
 			{
 				//noinspection unchecked
-				entries = set.getEntriesForXValue(closest.getX());
+				entries = set.getEntriesForXValue(closest.getDrawAtX());
 			}
 		}
 
@@ -67,10 +67,10 @@ public class HorizontalBarHighlighter extends BarHighlighter {
 
 		for (Entry e : entries) {
 			MPPointD pixels = mChart.getTransformer(
-					set.getAxisDependency()).getPixelForValues(e.getY(), e.getX());
+					set.getAxisDependency()).getPixelForValues(e.getY(), e.getDrawAtX());
 
 			highlights.add(new Highlight(
-					e.getX(), e.getY(),
+					e.getDrawAtX(), e.getY(),
 					(float) pixels.x, (float) pixels.y,
 					dataSetIndex, set.getAxisDependency()));
 		}

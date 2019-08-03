@@ -137,7 +137,7 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
         }
 
         float y = e.getY();
-        float x = e.getX();
+        float x = e.getDrawAtX();
 
         float barWidth = mData.getBarWidth();
 
@@ -242,16 +242,14 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      * by the parameters.
      * Calls notifyDataSetChanged() afterwards.
      *
-     * @param fromX      the starting point on the x-axis where the grouping should begin
-     * @param groupSpace the space between groups of bars in values (not pixels) e.g. 0.8f for bar width 1f
      * @param barSpace   the space between individual bars in values (not pixels) e.g. 0.1f for bar width 1f
      */
-    public void groupBars(float fromX, float groupSpace, float barSpace) {
+    public void groupBars(float barSpace) {
 
         if (getBarData() == null) {
             throw new RuntimeException("You need to set data for the chart before grouping bars.");
         } else {
-            getBarData().groupBars(fromX, groupSpace, barSpace);
+            getBarData().groupBars(barSpace);
             notifyDataSetChanged();
         }
     }

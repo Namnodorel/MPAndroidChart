@@ -19,6 +19,9 @@ public class Entry extends BaseEntry implements Parcelable {
     /** the x value */
     private float x = 0f;
 
+    /** Where the value gets drawn at. This might differ from the x value for grouped bars*/
+    private float drawAtX = Float.MIN_VALUE;
+
     public Entry() {
 
     }
@@ -87,6 +90,14 @@ public class Entry extends BaseEntry implements Parcelable {
      */
     public void setX(float x) {
         this.x = x;
+    }
+
+    public float getDrawAtX() {
+        return drawAtX != Float.MIN_VALUE?drawAtX:x;
+    }
+
+    public void setDrawAtX(float drawAtX) {
+        this.drawAtX = drawAtX;
     }
 
     /**

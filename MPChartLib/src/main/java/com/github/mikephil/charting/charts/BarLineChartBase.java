@@ -1046,7 +1046,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
         if (e == null)
             return null;
 
-        mGetPositionBuffer[0] = e.getX();
+        mGetPositionBuffer[0] = e.getDrawAtX();
         mGetPositionBuffer[1] = e.getY();
 
         getTransformer(axis).pointValuesToPixel(mGetPositionBuffer);
